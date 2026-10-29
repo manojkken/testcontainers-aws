@@ -1,25 +1,37 @@
 """Kinesis service manager with helper methods."""
 
-from typing import Any, Dict, List, Optional
+from typing import TYPE_CHECKING, Any, Dict, List, Optional, cast
 from testcontainers_aws.services.base import BaseServiceManager
+
+if TYPE_CHECKING:
+    from types_boto3_kinesis import KinesisClient
+    from types_boto3_kinesis.literals import ShardIteratorTypeType
+    from types_boto3_kinesis.type_defs import (
+        DescribeStreamOutputTypeDef,
+        EmptyResponseMetadataTypeDef,
+        GetRecordsOutputTypeDef,
+        PutRecordOutputTypeDef,
+        PutRecordsOutputTypeDef,
+        PutRecordsRequestEntryTypeDef,
+    )
 
 
 class KinesisServiceManager(BaseServiceManager):
     """Manages Kinesis operations and simplifies common testing tasks."""
 
     @property
-    def client(self) -> Any:
+    def client(self) -> 'KinesisClient':
         """Get Kinesis client."""
         if not self._client:
             self._client = self.environment.get_client('kinesis')
-        return self._client
+        return cast('KinesisClient', self._client)
 
     def create_stream(
         self,
         stream_name: str,
         shard_count: int = 1,
-        **kwargs
-    ) -> Dict[str, Any]:
+        **kwargs: Any
+    ) -> 'EmptyResponseMetadataTypeDef':
         """
         Create a Kinesis stream.
 
@@ -47,8 +59,8 @@ class KinesisServiceManager(BaseServiceManager):
         stream_name: str,
         data: bytes,
         partition_key: str,
-        **kwargs
-    ) -> Dict[str, Any]:
+        **kwargs: Any
+    ) -> 'PutRecordOutputTypeDef':
         """
         Put a record into a Kinesis stream.
 
@@ -72,8 +84,8 @@ class KinesisServiceManager(BaseServiceManager):
         self,
         stream_name: str,
         records: List[Dict[str, Any]],
-        **kwargs
-    ) -> Dict[str, Any]:
+        **kwargs: Any
+    ) -> 'PutRecordsOutputTypeDef':
         """
         Put multiple records into a Kinesis stream.
 
@@ -87,7 +99,7 @@ class KinesisServiceManager(BaseServiceManager):
         """
         return self.client.put_records(
             StreamName=stream_name,
-            Records=records,
+            Records=cast('List[PutRecordsRequestEntryTypeDef]', records),
             **kwargs
         )
 
@@ -95,8 +107,8 @@ class KinesisServiceManager(BaseServiceManager):
         self,
         stream_name: str,
         shard_id: str,
-        iterator_type: str = 'TRIM_HORIZON',
-        **kwargs
+        iterator_type: 'ShardIteratorTypeType' = 'TRIM_HORIZON',
+        **kwargs: Any
     ) -> str:
         """
         Get a shard iterator for reading from a stream.
@@ -122,8 +134,8 @@ class KinesisServiceManager(BaseServiceManager):
         self,
         shard_iterator: str,
         limit: Optional[int] = None,
-        **kwargs
-    ) -> Dict[str, Any]:
+        **kwargs: Any
+    ) -> 'GetRecordsOutputTypeDef':
         """
         Get records from a Kinesis stream.
 
@@ -135,7 +147,7 @@ class KinesisServiceManager(BaseServiceManager):
         Returns:
             Response from get_records API
         """
-        params = {'ShardIterator': shard_iterator}
+        params: Dict[str, Any] = {'ShardIterator': shard_iterator}
 
         if limit:
             params['Limit'] = limit
@@ -143,7 +155,7 @@ class KinesisServiceManager(BaseServiceManager):
         params.update(kwargs)
         return self.client.get_records(**params)
 
-    def describe_stream(self, stream_name: str) -> Dict[str, Any]:
+    def describe_stream(self, stream_name: str) -> 'DescribeStreamOutputTypeDef':
         """
         Describe a Kinesis stream.
 
@@ -155,7 +167,7 @@ class KinesisServiceManager(BaseServiceManager):
         """
         return self.client.describe_stream(StreamName=stream_name)
 
-    def delete_stream(self, stream_name: str, **kwargs) -> Dict[str, Any]:
+    def delete_stream(self, stream_name: str, **kwargs: Any) -> 'EmptyResponseMetadataTypeDef':
         """
         Delete a Kinesis stream.
 
@@ -178,7 +190,7 @@ class KinesisServiceManager(BaseServiceManager):
         Returns:
             List of stream names
         """
-        params = {}
+        params: Dict[str, Any] = {}
         if limit:
             params['Limit'] = limit
 

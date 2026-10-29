@@ -8,4 +8,5 @@ ruff>=0.1.0
 types-boto3>=1.0.0
 types-boto3-s3>=1.0.0
 types-boto3-dynamodb>=1.0.0
+types-boto3-kinesis>=1.0.0
 types-boto3-sqs>=1.0.0
