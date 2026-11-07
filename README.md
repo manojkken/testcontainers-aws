@@ -48,7 +48,7 @@ pip install testcontainers-aws
 ```
 
 Requires:
-- Python 3.8+
+- Python 3.9+
 - Docker installed and running
 
 ## Quick Start
