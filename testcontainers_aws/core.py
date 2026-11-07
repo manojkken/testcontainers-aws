@@ -1,5 +1,6 @@
 """Core AWS test environment orchestration."""
 
+import os
 from typing import Dict, List, Optional, Any
 import boto3
 from testcontainers.localstack import LocalStackContainer
@@ -98,6 +99,11 @@ class AWSTestEnvironment:
             self._container = self._container.with_volume_mapping(
                 "/var/run/docker.sock", "/var/run/docker.sock", "rw"
             )
+
+        # Pass auth token through when set (required for LocalStack 2026.03.0+ / latest)
+        auth_token = os.environ.get("LOCALSTACK_AUTH_TOKEN")
+        if auth_token:
+            self._container = self._container.with_env("LOCALSTACK_AUTH_TOKEN", auth_token)
 
         self._container.start()
 

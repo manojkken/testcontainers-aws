@@ -380,10 +380,17 @@ By default, testcontainers-aws uses LocalStack `4.14`. Starting with `2026.03.0`
 (including `latest`) require a `LOCALSTACK_AUTH_TOKEN` to start, so `4.14` is the last release that
 works without an account.
 
+If you have a LocalStack auth token, set the `LOCALSTACK_AUTH_TOKEN` environment variable and specify
+the desired version:
+
+```bash
+export LOCALSTACK_AUTH_TOKEN="your-token"
+```
+
 ```python
 with AWSTestEnvironment(
     services=['s3'],
-    image_tag='4.13'  # Specific LocalStack version
+    image_tag='latest'  # or a specific version like '4.15'
 ) as aws:
     # ...
 ```
