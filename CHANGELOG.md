@@ -8,9 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Changed
-- Drop support for Python 3.8 (reached end-of-life); require Python >= 3.9
+- Drop support for Python 3.8 and 3.9 (both end-of-life); require Python >= 3.10
 - Add Python 3.13 to CI test matrix and package classifiers
-- Bump tool target versions (ruff, black, mypy) to Python 3.9
+- Bump tool target versions (ruff, black, mypy) to Python 3.10
+- CI tests Python 3.10, 3.12 and 3.13 (GitHub's `ubuntu-latest` image no longer provides Python 3.9)
 
 ## [0.1.1] - 2026-10-20
 

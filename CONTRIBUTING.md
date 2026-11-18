@@ -4,7 +4,7 @@ Thanks for your interest in contributing! Bug reports, feature ideas, docs fixes
 
 ## Getting started
 
-Requirements: Python 3.8+ and Docker (running).
+Requirements: Python 3.10+ and Docker (running).
 
 ```bash
 git clone https://github.com/manojkken/testcontainers-aws.git
