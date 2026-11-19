@@ -7,8 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-11-19
+
 ### Added
 - Forward `LOCALSTACK_AUTH_TOKEN` from the environment to the LocalStack container when set (#4)
+
 ### Changed
 - Drop support for Python 3.8 and 3.9 (both end-of-life); require Python >= 3.10
 - Add Python 3.13 to CI test matrix and package classifiers
@@ -69,4 +72,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Type hints for better IDE support
 - Comprehensive error handling
 
-[0.1.0]: https://github.com/yourusername/testcontainers-aws/releases/tag/v0.1.0
+[Unreleased]: https://github.com/manojkken/testcontainers-aws/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/manojkken/testcontainers-aws/compare/v0.1.1...v0.2.0
+[0.1.1]: https://github.com/manojkken/testcontainers-aws/releases/tag/v0.1.1
+[0.1.0]: https://pypi.org/project/testcontainers-aws/0.1.0/
