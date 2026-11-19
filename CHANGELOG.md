@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Forward `LOCALSTACK_AUTH_TOKEN` from the environment to the LocalStack container when set (#4)
 ### Changed
 - Drop support for Python 3.8 and 3.9 (both end-of-life); require Python >= 3.10
 - Add Python 3.13 to CI test matrix and package classifiers
